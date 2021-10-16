@@ -70,7 +70,7 @@ def decoder():
         text = decode(audio,profile.filename)
         # print("Decoded")
     
-        return text
+        return render_template('./index.html', deciphered=text)
         # return send_from_directory(os.path.join(uploads_dir, 'sampleStego.wav'),filename="encoded.wav",as_attachment=True)
     else:
         return redirect('/')
