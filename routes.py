@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request,redirect,send_from_directory,send_file
-from werkzeug import secure_filename
+# from werkzeug import secure_filename
 import wave,os,time,zipfile
 import tempfile
 
@@ -27,7 +27,9 @@ def upload():
     if request.method == 'POST':
         
         profile = request.files['file']
-        path = os.path.join(uploads_dir, secure_filename(profile.filename))
+        # path = os.path.join(uploads_dir, secure_filename(profile.filename))
+        path = os.path.join(uploads_dir, profile.filename)
+
         # print(request.args)
         message = request.form['message']
         
@@ -55,7 +57,8 @@ def decoder():
     if request.method == 'POST':
         
         profile = request.files['file']
-        path = os.path.join(uploads_dir, secure_filename(profile.filename))
+        # path = os.path.join(uploads_dir, secure_filename(profile.filename))
+        path = os.path.join(uploads_dir,profile.filename)
         # setupdir(path)
         # os.mkdir(path)
         
