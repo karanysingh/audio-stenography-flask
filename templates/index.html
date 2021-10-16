@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="stylesheet" href="Index.css" />
+        <title>Title</title>
+    </head>
+    <body>
+
+        <header>
+            <h1>Audio Stenography</h1>
+        </header>
+        
+        <h1>ENCODE (to receive encoded audio)</h1>
+        <form action = "/upload" method = "post" enctype="multipart/form-data">  
+            <input type="file" name="file" />  
+            <input type="text" name="message" />  
+            <input type = "submit" value="Upload">  
+        </form>  
+
+        <h1>DECODE (to receive the decoded text)</h1>
+        <form action = "/decode" method = "post" enctype="multipart/form-data">  
+            <input type="file" name="file" />  
+            <input type = "submit" value="Upload">  
+        </form>  
+
+        <script src="index.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
+       
+    </body>
+</html>
