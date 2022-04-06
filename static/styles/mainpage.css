@@ -1,0 +1,29 @@
+#headerStyle{
+    text-align:center;
+}
+body{
+    background-color: #0D0F1C;
+    color: white;
+    font-family: monospace;
+}
+.main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-around;
+}
+.main>div{
+    box-shadow: 0px 0px 10px 0.2px white;
+    padding: 10px 200px 40px 40px;
+    border-radius: 2em;
+    /* width: ; */
+}
+.message{
+    width: 100%;
+    background-color: black;
+    padding: 5px 5px 5px 15px;
+    margin-top: 10px;
+    border: 5px inset greenyellow;
+    border-radius: 1em;
+}

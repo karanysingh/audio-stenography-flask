@@ -3,7 +3,7 @@ from flask import Flask,render_template,request,redirect,send_from_directory,sen
 import wave,os,time,zipfile
 import tempfile
 
-from steno import encode,decode
+from steno import encode,decode,phase_encode,phase_decode
 app = Flask(__name__)
 
 uploads_dir = tempfile.gettempdir()
@@ -32,6 +32,7 @@ def upload():
 
         # print(request.args)
         message = request.form['message']
+        type = request.form['type']
         
         profile.save(path)
         # print("Saved")
@@ -39,7 +40,11 @@ def upload():
         audio = wave.open(path,mode="rb")
         # print("Opened")
         
-        encode(audio,profile.filename,message)
+        # encode(audio,profile.filename,message)
+        if(type=="phase"):
+            phase_encode(audio,path,profile.filename,message)
+        elif(type=="lsb"):
+            encode(audio,profile.filename,message)
         # print("Encoded")
         
         return send_file(os.path.join(uploads_dir,profile.filename+"encoded"),
@@ -57,6 +62,8 @@ def decoder():
     if request.method == 'POST':
         
         profile = request.files['file']
+        type = request.form['type']
+
         # path = os.path.join(uploads_dir, secure_filename(profile.filename))
         path = os.path.join(uploads_dir,profile.filename)
         # setupdir(path)
@@ -67,7 +74,10 @@ def decoder():
     
         audio = wave.open(path,mode="rb")
         # print("Opened")
-        text = decode(audio,profile.filename)
+        if(type=="phase"):
+            text = phase_decode(audio,profile.filename,path)
+        elif(type=="lsb"):
+            text = decode(audio,profile.filename)
         # print("Decoded")
     
         return render_template('./index.html', deciphered=text)

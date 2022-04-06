@@ -4,33 +4,64 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <link rel="stylesheet" href="Index.css" />
-        <title>Title</title>
-    </head>
-    <body>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+        <title>Steganography</title>
+        
 
         <header>
-            <h1>Audio Stenography</h1>
+            <h1 id="headerStyle">Steganography</h1>
         </header>
-        
-        <h1>ENCODE (to receive encoded audio)</h1>
+    </head>
+    <body>
+        <div class="main">
+        <div class="encode">
+        <h1>ENCODE</h1>
+        <!-- <i>to receive encoded file</i> -->
+        <br>
         <form action = "/upload" method = "post" enctype="multipart/form-data">  
-            <input type="file" name="file" />  
-            <input type="text" name="message" />  
+            <input type="file" name="file" />  <br><br>
+            <input type="radio" name="type" value="phase"> Audio Phase Coding<br>
+            <input type="radio" name="type" value="lsb"> Audio LSB Coding<br>
+            <input type="radio" name="type" value="third"> Audio Phase Coding<br><br>
+            <input type="radio" name="type" value="phase"> Image Phase Coding<br>
+            <input type="radio" name="type" value="lsb"> Image LSB Coding<br>
+            <input type="radio" name="type" value="third"> Image Phase Coding<br><br>
+            <input type="radio" name="type" value="phase"> Text Phase Coding<br>
+            <input type="radio" name="type" value="lsb"> Text LSB Coding<br>
+            <input type="radio" name="type" value="third"> Text Phase Coding<br><br>
+            Secret message
+            <input type="text" name="message" />  <br><br>
             <input type = "submit" value="Upload">  
         </form>  
+    </div>
+    <div class="decode">
+        <h1>DECODE </h1>
+        <!-- <i>to receive decoded file</i> -->
+        <br>
 
-        <h1>DECODE (to receive the decoded text)</h1>
         <form action = "/decode" method = "post" enctype="multipart/form-data">  
-            <input type="file" name="file" />  
+            <input type="file" name="file" /> <br><br>
+            <input type="radio" name="type" value="phase"> Audio Phase Coding<br>
+            <input type="radio" name="type" value="lsb"> Audio LSB Coding<br>
+            <input type="radio" name="type" value="third"> Audio Phase Coding<br><br>
+            <input type="radio" name="type" value="phase"> Image Phase Coding<br>
+            <input type="radio" name="type" value="lsb"> Image LSB Coding<br>
+            <input type="radio" name="type" value="third"> Image Phase Coding<br><br>
+            <input type="radio" name="type" value="phase"> Text Phase Coding<br>
+            <input type="radio" name="type" value="lsb"> Text LSB Coding<br>
+            <input type="radio" name="type" value="third"> Text Phase Coding<br><br> 
             <input type = "submit" value="Upload">  
         </form>  
-
-        <h2>{{ deciphered }}</h2>
+        <br><br>
+        <p>Message Hidden:</p>
+        <div class="message">
+        <p>{{ deciphered }}</p>
+    </div>
         <script src="index.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
         crossorigin="anonymous"></script>
-       
+    </div>
+</div>
     </body>
 </html>
