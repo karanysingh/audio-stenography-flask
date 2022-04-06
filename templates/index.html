@@ -20,15 +20,15 @@
         <br>
         <form action = "/upload" method = "post" enctype="multipart/form-data">  
             <input type="file" name="file" />  <br><br>
-            <input type="radio" name="type" value="phase"> Audio Phase Coding<br>
-            <input type="radio" name="type" value="lsb"> Audio LSB Coding<br>
-            <input type="radio" name="type" value="third"> Audio Phase Coding<br><br>
-            <input type="radio" name="type" value="phase"> Image Phase Coding<br>
-            <input type="radio" name="type" value="lsb"> Image LSB Coding<br>
-            <input type="radio" name="type" value="third"> Image Phase Coding<br><br>
-            <input type="radio" name="type" value="phase"> Text Phase Coding<br>
-            <input type="radio" name="type" value="lsb"> Text LSB Coding<br>
-            <input type="radio" name="type" value="third"> Text Phase Coding<br><br>
+            <input type="radio" name="type" value="phase"> Audio - Phase Coding<br>
+            <input type="radio" name="type" value="lsb"> Audio - LSB Coding<br>
+            <input type="radio" name="type" value="parity"> Audio - Parity Coding<br><br>
+            <input type="radio" name="type" value="phase"> Image - Encrypt and Scatter<br>
+            <input type="radio" name="type" value="lsb"> Image - LSB Insertion<br>
+            <input type="radio" name="type" value="third"> Image - Redundant Pattern Encoding<br><br>
+            <input type="radio" name="type" value="phase"> Text - Format Based<br>
+            <input type="radio" name="type" value="lsb"> Text - Random and Statistical<br>
+            <input type="radio" name="type" value="third"> Text - Linguistic and Statistical<br><br> 
             Secret message
             <input type="text" name="message" />  <br><br>
             <input type = "submit" value="Upload">  
@@ -41,15 +41,15 @@
 
         <form action = "/decode" method = "post" enctype="multipart/form-data">  
             <input type="file" name="file" /> <br><br>
-            <input type="radio" name="type" value="phase"> Audio Phase Coding<br>
-            <input type="radio" name="type" value="lsb"> Audio LSB Coding<br>
-            <input type="radio" name="type" value="third"> Audio Phase Coding<br><br>
-            <input type="radio" name="type" value="phase"> Image Phase Coding<br>
-            <input type="radio" name="type" value="lsb"> Image LSB Coding<br>
-            <input type="radio" name="type" value="third"> Image Phase Coding<br><br>
-            <input type="radio" name="type" value="phase"> Text Phase Coding<br>
-            <input type="radio" name="type" value="lsb"> Text LSB Coding<br>
-            <input type="radio" name="type" value="third"> Text Phase Coding<br><br> 
+            <input type="radio" name="type" value="phase"> Audio - Phase Coding<br>
+            <input type="radio" name="type" value="lsb"> Audio - LSB Coding<br>
+            <input type="radio" name="type" value="parity"> Audio - Parity Coding<br><br>
+            <input type="radio" name="type" value="phase"> Image - Encrypt and Scatter<br>
+            <input type="radio" name="type" value="lsb"> Image - LSB Insertion<br>
+            <input type="radio" name="type" value="third"> Image - Redundant Pattern Encoding<br><br>
+            <input type="radio" name="type" value="phase"> Text - Format Based<br>
+            <input type="radio" name="type" value="lsb"> Text - Random and Statistical<br>
+            <input type="radio" name="type" value="third"> Text - Linguistic and Statistical<br><br> 
             <input type = "submit" value="Upload">  
         </form>  
         <br><br>
