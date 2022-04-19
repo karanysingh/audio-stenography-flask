@@ -17,20 +17,23 @@
         <div class="encode">
         <h1>ENCODE</h1>
         <!-- <i>to receive encoded file</i> -->
-        <br>
-        <form action = "/upload" method = "post" enctype="multipart/form-data">  
-            <input type="file" name="file" />  <br><br>
-            <input type="radio" name="type" value="phase"> Audio - Phase Coding<br>
+        <br><input type="radio" name="type" value="phase"> Audio - Phase Coding<br>
             <input type="radio" name="type" value="lsb"> Audio - LSB Coding<br>
             <input type="radio" name="type" value="parity"> Audio - Parity Coding<br><br>
-            <input type="radio" name="type" value="phase"> Image - Encrypt and Scatter<br>
-            <input type="radio" name="type" value="lsb"> Image - LSB Insertion<br>
-            <input type="radio" name="type" value="third"> Image - Redundant Pattern Encoding<br><br>
+            <input id="maskfilter" type="radio" name="type" value="enimg"> Image - masking and filtering<br>
+            <input type="radio" name="type" value="lsbimg"> Image - LSB Insertion<br>
+            <input type="radio" name="type" value="rpeimg"> Image - Redundant Pattern Encoding<br><br>
             <input type="radio" name="type" value="phase"> Text - Format Based<br>
             <input type="radio" name="type" value="lsb"> Text - Random and Statistical<br>
             <input type="radio" name="type" value="third"> Text - Linguistic and Statistical<br><br> 
+            <div class="file2upload upload_false">
             Secret message
             <input type="text" name="message" />  <br><br>
+            </div>
+            
+        <form action = "/upload" method = "post" enctype="multipart/form-data">  
+            <input type="file" name="file" />  <br><br>
+            
             <input type = "submit" value="Upload">  
         </form>  
     </div>
@@ -38,18 +41,19 @@
         <h1>DECODE </h1>
         <!-- <i>to receive decoded file</i> -->
         <br>
-
-        <form action = "/decode" method = "post" enctype="multipart/form-data">  
-            <input type="file" name="file" /> <br><br>
-            <input type="radio" name="type" value="phase"> Audio - Phase Coding<br>
+<input type="radio" name="type" value="phase"> Audio - Phase Coding<br>
             <input type="radio" name="type" value="lsb"> Audio - LSB Coding<br>
             <input type="radio" name="type" value="parity"> Audio - Parity Coding<br><br>
-            <input type="radio" name="type" value="phase"> Image - Encrypt and Scatter<br>
-            <input type="radio" name="type" value="lsb"> Image - LSB Insertion<br>
-            <input type="radio" name="type" value="third"> Image - Redundant Pattern Encoding<br><br>
+            <input type="radio" name="type" value="enimg"> Image - Encrypt and Scatter<br>
+            <input type="radio" name="type" value="lsbimg"> Image - LSB Insertion<br>
+            <input type="radio" name="type" value="rpeimg"> Image - Redundant Pattern Encoding<br><br>
             <input type="radio" name="type" value="phase"> Text - Format Based<br>
             <input type="radio" name="type" value="lsb"> Text - Random and Statistical<br>
-            <input type="radio" name="type" value="third"> Text - Linguistic and Statistical<br><br> 
+            <input type="radio" name="type" value="third"> Text - Linguistic and Statistical<br><br>
+            
+        <form action = "/decode" method = "post" enctype="multipart/form-data">  
+            <input type="file" name="file" /> <br><br>
+             
             <input type = "submit" value="Upload">  
         </form>  
         <br><br>
@@ -61,6 +65,11 @@
         <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
         crossorigin="anonymous"></script>
+        <!-- <script>
+            if(document.getElementById("maskfilter").disabled == True){
+                document.getElementById
+            }
+        </script> -->
     </div>
 </div>
     </body>

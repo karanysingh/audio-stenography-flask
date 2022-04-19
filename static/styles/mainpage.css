@@ -27,3 +27,9 @@ body{
     border: 5px inset greenyellow;
     border-radius: 1em;
 }
+.file2upload {
+    width:100%,
+}
+.file2upload.upload_true {
+    display: none !important,
+}
