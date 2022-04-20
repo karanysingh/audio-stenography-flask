@@ -17,23 +17,30 @@
         <div class="encode">
         <h1>ENCODE</h1>
         <!-- <i>to receive encoded file</i> -->
-        <br><input type="radio" name="type" value="phase"> Audio - Phase Coding<br>
+        <br>
+                    
+        <form action = "/upload" method = "post" enctype="multipart/form-data">  
+            
+        <input type="radio" name="type" value="phase"> Audio - Phase Coding<br>
             <input type="radio" name="type" value="lsb"> Audio - LSB Coding<br>
-            <input type="radio" name="type" value="parity"> Audio - Parity Coding<br><br>
-            <input id="maskfilter" type="radio" name="type" value="enimg"> Image - masking and filtering<br>
+            <br> 
+            <input id="maskfilter" type="radio" name="type" value="mask"> Image - masking and filtering<br>
             <input type="radio" name="type" value="lsbimg"> Image - LSB Insertion<br>
-            <input type="radio" name="type" value="rpeimg"> Image - Redundant Pattern Encoding<br><br>
-            <input type="radio" name="type" value="phase"> Text - Format Based<br>
-            <input type="radio" name="type" value="lsb"> Text - Random and Statistical<br>
-            <input type="radio" name="type" value="third"> Text - Linguistic and Statistical<br><br> 
-            <div class="file2upload upload_false">
+            <input type="radio" name="type" value="lsbimg"> Image - Encrypt and scatter<br><br>
+            <input type="radio" name="type" value="snow"> Text - Snow<br>
+            <input type="radio" name="type" value="lookalike"> Text - Lookalike<br>
+            <!-- <input type="radio" name="type" value="zw"> Text - Zerowidth<br><br>  --><br>
+            <div id="secretHandler">
             Secret message
             <input type="text" name="message" />  <br><br>
             </div>
-            
-        <form action = "/upload" method = "post" enctype="multipart/form-data">  
+
+            <label for="file">File:</label>
             <input type="file" name="file" />  <br><br>
-            
+            <div id="file2upload">
+            <label for="maskfile">File for masking:</label>
+            <input  type="file" name="maskfile" /> <br><br>
+            </div>
             <input type = "submit" value="Upload">  
         </form>  
     </div>
@@ -41,17 +48,21 @@
         <h1>DECODE </h1>
         <!-- <i>to receive decoded file</i> -->
         <br>
-<input type="radio" name="type" value="phase"> Audio - Phase Coding<br>
-            <input type="radio" name="type" value="lsb"> Audio - LSB Coding<br>
-            <input type="radio" name="type" value="parity"> Audio - Parity Coding<br><br>
-            <input type="radio" name="type" value="enimg"> Image - Encrypt and Scatter<br>
-            <input type="radio" name="type" value="lsbimg"> Image - LSB Insertion<br>
-            <input type="radio" name="type" value="rpeimg"> Image - Redundant Pattern Encoding<br><br>
-            <input type="radio" name="type" value="phase"> Text - Format Based<br>
-            <input type="radio" name="type" value="lsb"> Text - Random and Statistical<br>
-            <input type="radio" name="type" value="third"> Text - Linguistic and Statistical<br><br>
-            
+                
         <form action = "/decode" method = "post" enctype="multipart/form-data">  
+            
+            <input type="radio" name="type" value="phase"> Audio - Phase Coding<br>
+            <input type="radio" name="type" value="lsb"> Audio - LSB Coding<br>
+            <!-- <input type="radio" name="type" value="parity"> Audio - Parity Coding<br><br> -->
+            <br> 
+
+            <input type="radio" name="type" value="lsbimg"> Image - Encrypt and scatter<br><br>
+            <input type="radio" name="type" value="lsbimg"> Image - LSB Insertion<br><br>
+            <input type="radio" name="type" value="snow"> Text - Snow<br>
+            <input type="radio" name="type" value="lookalike"> Text - Lookalike<br>
+            <!-- <input type="radio" name="type" value="zw"> Text - Zerowidth<br><br> --><br>
+    
+            <label for="file">Select a file:</label>
             <input type="file" name="file" /> <br><br>
              
             <input type = "submit" value="Upload">  
@@ -61,15 +72,29 @@
         <div class="message">
         <p>{{ deciphered }}</p>
     </div>
-        <script src="index.js"></script>
+        <!-- <script src="index.js"></script> -->
         <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
         crossorigin="anonymous"></script>
-        <!-- <script>
-            if(document.getElementById("maskfilter").disabled == True){
-                document.getElementById
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script>
+            $("input").click(function(){
+            console.log($('input[type="radio"][name="type"]:checked').val());
+            if($('input[type="radio"][name="type"]:checked').val() == "mask"){
+                $("#secretHandler").hide()
+                $("#file2upload").show();
             }
-        </script> -->
+            else{                
+                $("#secretHandler").show()
+                $("#file2upload").hide();
+            }
+            })
+            // if($('input[type="radio"][name="name"]:checked').val()=="maskfilter") {
+            //     // alert("selected");
+            //     $("#secretHandler").css("display","none");
+            //     $("#file2upload").css("display","block");
+            // })
+        </script>
     </div>
 </div>
     </body>

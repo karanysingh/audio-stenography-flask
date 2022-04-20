@@ -5,7 +5,8 @@ import wave,os,time,zipfile
 import tempfile
 
 from steno import encode,decode,phase_encode,phase_decode
-from img_en import lsbimg_decode,lsbimg_encode 
+from img_en import lsbimg_decode,lsbimg_encode,mask
+from text_en import txt_encode,txt_decode
 app = Flask(__name__)
 
 uploads_dir = tempfile.gettempdir()
@@ -32,18 +33,22 @@ def upload():
         # path = os.path.join(uploads_dir, secure_filename(profile.filename))
         path = os.path.join(uploads_dir, profile.filename)
 
-        # print(request.args)
-        message = request.form['message']
+        print(list(request.form.keys()))
         type = request.form['type']
  
         profile.save(path)
-        print("Saved ",message)
+        # print("Saved ",message)
 # IMAGE STEGANOGRAPHY
-        if(type in ["lsbimg","rpeimg","enimg"]):
+        if(type in ["lsbimg","mask","enimg"]):
             if(type=="lsbimg"):
+                message = request.form['message']
                 lsbimg_encode(path,message)
-            elif(type=="rpeimg"):
-                pass
+            elif(type=="mask"):        
+                maskpath = os.path.join(uploads_dir, request.files['maskfile'].filename)
+                request.files['maskfile'].save(maskpath)
+                
+                print("maskpath: ",maskpath)
+                mask(path,maskpath)
             else:
                 pass
             return send_file(
@@ -60,14 +65,38 @@ def upload():
             
             # encode(audio,profile.filename,message)
             if(type=="phase"):
+                        
+                message = request.form['message']
                 phase_encode(audio,path,profile.filename,message)
             elif(type=="lsb"):
+                message = request.form['message']
                 encode(audio,profile.filename,message)
             # print("Encoded")
-        
+            
             return send_file(os.path.join(uploads_dir,profile.filename+"encoded"),
                 mimetype = 'wav',
                 attachment_filename= profile.filename+"_encoded.wav",
+                as_attachment = True)
+            
+# TEXT STEGANOGRAPHY
+        elif(type in ["snow","lookalike","zw"]):
+            f = open(path, "r")
+            data = f.read()
+            f.close()
+            message = request.form['message']
+            if(type=="zero"):
+                new_data = txt_encode(data,message.encode("ascii"),"zw",binary=True)
+            
+            elif(type=="snow"):
+                new_data = txt_encode(data,message.encode("ascii"),"snow",binary=True)
+            else:
+                new_data = txt_encode(data,message.encode("ascii"),"lookalike",binary=True)
+            with open(path+"_encoded", "w", encoding="utf-8") as f:
+                f.write(new_data)
+                f.close()
+            return send_file(os.path.join(uploads_dir,profile.filename+"_encoded"),
+                mimetype = 'txt',
+                attachment_filename= profile.filename+"_encoded.txt",
                 as_attachment = True)
         # return send_from_directory(os.path.join(uploads_dir, 'sampleStego.wav'),filename="encoded.wav",as_attachment=True)
     else:
@@ -89,12 +118,13 @@ def decoder():
         
         profile.save(path)
         # print("Saved")
+        
 # IMAGE STEGANOGRAPHY
         if(type in ["lsbimg","rpeimg","enimg"]):
             if(type=="lsbimg"):
                 text = lsbimg_decode(path)
                 print("got text",text)
-            elif(type=="rpeimg"):
+            elif(type=="mask"):
                 pass
             else:
                 pass
@@ -105,12 +135,20 @@ def decoder():
                 text = phase_decode(audio,profile.filename,path)
             elif(type=="lsb"):
                 text = decode(audio,profile.filename)
-            # print("Decoded")
-    
+
+# TEXT STEGANOGRAPHY
+        elif(type in ["snow","lookalike","zw"]):
+            with open(path, "r", encoding="utf-8") as f:
+                data = f.read()
+                f.close()
+            text = txt_decode(data,type,binary=True)
+            print("decoded==> ",str(text))
+            
         return render_template('./index.html', deciphered=text)
-        # return send_from_directory(os.path.join(uploads_dir, 'sampleStego.wav'),filename="encoded.wav",as_attachment=True)
     else:
         return redirect('/')
+    
+
 
 
 

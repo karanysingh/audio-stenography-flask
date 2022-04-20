@@ -17,6 +17,7 @@ body{
     box-shadow: 0px 0px 10px 0.2px white;
     padding: 10px 200px 40px 40px;
     border-radius: 2em;
+    max-width: 30%;
     /* width: ; */
 }
 .message{
@@ -26,10 +27,12 @@ body{
     margin-top: 10px;
     border: 5px inset greenyellow;
     border-radius: 1em;
+    overflow-x: scroll;
 }
-.file2upload {
-    width:100%,
+#file2upload{
+    transition: ease-in-out;
+    transition-duration: 0.7s;
 }
-.file2upload.upload_true {
-    display: none !important,
-}
+::-webkit-scrollbar {
+    width: 1px;
+  }
